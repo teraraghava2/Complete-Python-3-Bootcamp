@@ -118,3 +118,121 @@ Output Format (JSON):
 
 Task:
 Evaluate the provided call transcript and summary based on the criteria and scoring guidelines above. Return the results in the specified JSON format. Response key: "evaluation_result"
+Here’s a structured approach to creating an effective slide deck to explain your evaluation methodology and potential improvements. I’ll outline the key slides and their content:
+
+Title Slide
+
+	•	Title: “Evaluation of Transcript and Summary Quality for Bank Customer Conversations”
+	•	Subtitle: A detailed approach to scoring and improving AI-generated summaries
+	•	Your Name and Date
+
+Slide 1: Introduction
+
+	•	Title: “Why Evaluate Transcript and Summary Quality?”
+	•	Content:
+	•	Explain the importance of evaluating bank customer service interactions.
+	•	Highlight goals:
+	•	Ensure AI-generated summaries accurately reflect conversations.
+	•	Maintain confidentiality and data integrity.
+	•	Use case: Enhancing customer support outcomes with AI.
+
+Slide 2: Approach Overview
+
+	•	Title: “The Evaluation Workflow”
+	•	Content:
+	•	Show a flowchart or steps:
+	1.	Input: Call transcript and model-generated summary.
+	2.	Human evaluation using scoring criteria.
+	3.	Output: JSON structure with scores, justifications, and evidence.
+	•	Emphasize evidence-based, strict adherence to provided data.
+
+Slide 3: Scoring Criteria
+
+	•	Title: “Key Evaluation Criteria”
+	•	Content:
+	•	List and briefly describe:
+	1.	Transcript Quality (Low, Medium, High)
+	2.	Summary Quality (Low, Medium, High)
+	3.	Summary Coherence (Good, Neutral, Bad)
+	4.	Resolution Capture (Yes, No)
+	5.	Informative Content (Low, Medium, High)
+	6.	Truthfulness and Absence of Hallucinations (Yes, No)
+	7.	Presence of Toxic Language (Yes, No)
+	•	Mention evidence-backed scoring.
+
+Slide 4: JSON Output Format
+
+	•	Title: “Standardized Output Format”
+	•	Content:
+	•	Show a visual example of the JSON structure.
+	•	Highlight fields: Score, Justification, Evidence.
+	•	Explain why this format is effective for machine learning models and analysis.
+
+Slide 5: Guardrails for Evaluation
+
+	•	Title: “Ensuring Confidentiality and Accuracy”
+	•	Content:
+	•	Key guardrails:
+	•	Confidentiality: Data is sensitive, and no assumptions are allowed.
+	•	Strict adherence to provided information.
+	•	Evidence-based scoring with no fabrication.
+	•	How these guardrails maintain reliability and integrity.
+
+Slide 6: One-Shot Prompting Approach
+
+	•	Title: “Using One-Shot Prompting for Evaluation”
+	•	Content:
+	•	Describe the one-shot prompt format.
+	•	Explain how including sample input and output improves LLM responses.
+	•	Visual example of one-shot prompt and expected JSON output.
+
+Slide 7: Areas for Improvement
+
+	•	Title: “Opportunities for Refinement”
+	•	Content:
+	•	Accuracy: Enhance prompts for better clarity and alignment.
+	•	Scalability: Automate parts of the scoring process.
+	•	Granularity: Add more detailed scoring criteria (e.g., empathy detection).
+	•	Feedback Loop: Incorporate evaluator feedback to improve models.
+
+Slide 8: Challenges
+
+	•	Title: “Challenges in Evaluation”
+	•	Content:
+	•	Reliance on human interpretation for evidence-based scoring.
+	•	Handling edge cases where transcript data is unclear or incomplete.
+	•	Balancing scoring granularity with practicality.
+
+Slide 9: Potential Enhancements
+
+	•	Title: “Next Steps for Improvement”
+	•	Content:
+	•	Introduce multi-turn conversation context for holistic scoring.
+	•	Explore advanced metrics (e.g., empathy, tone analysis).
+	•	Train models using human-evaluated examples to refine AI outputs.
+	•	Leverage visualization tools to analyze evaluation data trends.
+
+Slide 10: Conclusion
+
+	•	Title: “Key Takeaways”
+	•	Content:
+	•	Evidence-based evaluation ensures high-quality AI summaries.
+	•	Guardrails are crucial for confidentiality and reliability.
+	•	Opportunities for iterative improvements in the process.
+	•	Future potential: Scalable and automated quality evaluation.
+
+Slide 11: Questions
+
+	•	Title: “Questions and Discussion”
+	•	Content:
+	•	Open the floor for questions.
+	•	Include a contact slide if necessary.
+
+Visuals and Design Tips:
+
+	•	Use charts or visuals to explain processes (e.g., flowcharts for evaluation workflow, JSON examples).
+	•	Keep text concise and highlight key points.
+	•	Use icons for categories (e.g., thumbs up/down for Yes/No questions).
+	•	Choose a professional color scheme (e.g., blue and white for corporate themes).
+
+This slide deck will effectively explain your approach while leaving room for discussing potential enhancements and next steps.
