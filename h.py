@@ -1,167 +1,112 @@
-Documentation: Natural Language Inference (NLI) Analysis for Call Transcripts and Summaries
+Below is a detailed documentation for your Cosine Similarity Score Analysis between call transcripts and summaries, structured to meet the requirements of a Model Risk Management (MRM) team. The document ensures completeness, clarity, and transparency in methodology, metrics, findings, and conclusions.
+
+Cosine Similarity Score Analysis Between Call Transcripts and Summaries
 
 1. Objective
 
-The goal of this analysis is to evaluate the alignment between call transcripts and their French summaries using Natural Language Inference (NLI). This involves determining whether the content in the summaries is entailed by the original transcripts.
-
-2. Model Used
-	•	Model Name: bart_large_mnli
-	•	Purpose: Text classification for NLI tasks, determining relationships between text pairs as Entailment, Neutral, or Contradiction.
-	•	Limitation: 512-token input limit, requiring chunking of longer transcripts.
-
-3. Methodology
-
-3.1 Data Processing
-	•	Total Records: 6,706 call transcripts and corresponding summaries.
-	•	Summary Sentences: 25,168 sentences in total.
-	•	Chunking: Due to the token limit, transcripts were split into chunks of various sizes (128, 256, and 400 tokens).
-	•	Overlap: A 30% overlap between chunks ensured context preservation.
-
-3.2 NLI Score Computation
-	•	Each summary sentence was compared against all transcript chunks.
-	•	NLI Evidence: A boolean indicating if a sentence is entailed (True) or not (False).
-	•	NLI Score: The highest entailment probability score for each sentence across all chunks.
-
-3.3 Chunk Size Impact
-	•	Chunk Size 400: Delivered the most consistent and higher scores.
-	•	Chunk Sizes 128 & 256: Showed similar performance with ~30% overlap in results.
-
-4. Results
-
-4.1 Chunk Size 256
-	•	False: 7,314
-	•	True: 17,879
-	•	Average NLI Entailment Score:
-	•	True Evidence: 0.729630
-	•	False Evidence: 0.253074
-
-4.2 Chunk Size 128
-	•	False: 10,751
-	•	True: 14,477
-	•	Average NLI Entailment Score:
-	•	True Evidence: 0.740799
-	•	False Evidence: 0.227967
-
-4.3 Overall Statistics (Optimal at Chunk Size 400)
-	•	Total True NLI Evidence: 20,362
-	•	Total False NLI Evidence: 4,806
-	•	Average NLI Entailment Score:
-	•	True Evidence: 0.734574
-	•	False Evidence: 0.273954
-
-5. Key Insights
-	•	Larger chunk sizes (400 tokens) improve NLI accuracy due to more context being available.
-	•	Smaller chunks (128, 256) perform similarly but with slightly lower entailment scores.
-	•	30% overlap between chunks aids in maintaining contextual integrity.
-
-6. Conclusion
-
-The analysis effectively measures how well call summaries reflect the original transcripts using NLI. The bart_large_mnli model, optimized at a chunk size of 400 tokens with overlap, achieves high entailment accuracy, validating the reliability of summaries.
-
-7. Next Steps
-	•	Experiment with different overlap percentages for further improvement.
-	•	Explore model fine-tuning for the French language to boost performance.
-	•	Automate chunk size optimization for scalability.
-
-This structured documentation provides a clear, step-by-step explanation of your NLI analysis and results. Let me know if you’d like me to add visualizations or refine any sections.
-Below is a detailed structure for the documentation that aligns with how a Model Risk Management (MRM) team would expect to see a thorough report. The document outlines the steps, processes, metrics, and findings related to your NLI analysis.
-
-Documentation for NLI Score Analysis Between Call Transcripts and Summaries
-
-1. Objective
-
-The goal of this analysis is to evaluate the performance of the BART-large MNLI model in assessing Natural Language Inference (NLI) between call transcripts (agent-customer interactions in a banking context) and their corresponding summaries. This involves:
-	•	Calculating NLI entailment scores and NLI evidence (True/False) for various chunk sizes of transcripts.
-	•	Analyzing the sensitivity of the model’s performance to chunk sizes.
-	•	Establishing a baseline using random NLI scores by shuffling the summaries to measure the model’s lift.
-	•	Providing detailed metrics and observations to support model validation and risk assessment.
+The purpose of this analysis is to evaluate the semantic similarity between call transcripts (conversations between bank agents and customers) and model-generated summaries using cosine similarity scores. The objective includes:
+	•	Measuring similarity at different chunk sizes (ranging from 25 to 500 tokens) to determine sensitivity to chunk size.
+	•	Comparing actual summary similarity with a random baseline (summaries shuffled across transcripts) to quantify the model’s performance.
+	•	Assessing model effectiveness in capturing meaningful relationships between transcripts and summaries.
+	•	Providing a structured risk assessment for model evaluation and validation.
 
 2. Methodology
 
-2.1. Model Used
-	•	Model Name: BART-large MNLI
-	•	Type: Pre-trained text classification model
-	•	Purpose: To classify relationships between pairs of text (entailment, contradiction, or neutral).
+2.1. Model and Metric Used
+	•	Model: Pre-trained text similarity model (Cosine Similarity computation).
+	•	Metric: Cosine Similarity Score (range: 0 to 1).
+	•	Higher values indicate stronger semantic similarity.
+	•	Lower values indicate weaker similarity.
 
 2.2. Data Inputs
-	•	Call Transcripts: Bank agent and customer interactions, consisting of multiple sentences. These are chunked into smaller sections.
-	•	Summaries: Manually generated summaries of the transcripts, sentence by sentence.
+	•	Call Transcripts: Bank agent-customer conversations (variable-length text).
+	•	Model-Generated Summaries: AI-generated summaries intended to concisely represent transcripts.
 
-2.3. Process Overview
-	1.	Chunking Transcripts:
-	•	Transcripts were divided into chunks of various sizes (100, 200, 300, 400, 500 tokens) to ensure manageable input for the NLI model, given its token limit.
-	•	Each summary sentence was aligned with the best-matching chunk to calculate entailment.
-	2.	NLI Score Calculation:
-	•	For each summary sentence, NLI entailment scores were calculated for every chunk of the transcript.
-	•	NLI Evidence: A binary metric (True or False) indicating whether a summary sentence aligns with the transcript chunk.
-	3.	Baseline Calculation:
-	•	A baseline was created by randomly shuffling summaries and calculating NLI scores to compare with the actual performance.
-	4.	Coverage Metrics:
-	•	True Evidence Coverage: The percentage of NLI evidence marked as True.
-	•	False Evidence Coverage: The percentage of NLI evidence marked as False.
-	•	Average Coverage: Calculated by averaging True and False coverage across all records and further averaging over all chunks.
+2.3. Chunking Strategy
+	•	Chunking transcripts into sizes of 25, 50, 60, 70, 100, 200, 280, 300, 330, 360, 380, 400, 500 tokens.
+	•	Each summary sentence compared to its best-matching transcript chunk for similarity measurement.
 
-2.4. Chunk Size Sensitivity
-	•	NLI scores were calculated for chunk sizes: 100, 200, 300, 400, and 500 tokens.
-	•	Comparisons were made across sizes to analyze model performance trends.
+2.4. Cosine Similarity Computation
+	1.	Regular Cosine Similarity: Measures similarity between transcript and corresponding summary.
+	2.	Random Baseline Similarity: Measures similarity by randomly shuffling summaries across transcripts to estimate a baseline score.
 
-3. Metrics and Calculations
+3. Results and Observations
 
-3.1. Key Metrics
-	•	NLI Evidence: Binary classification (True/False) of whether the summary aligns with the chunk.
-	•	Entailment Scores: Continuous scores indicating the degree of alignment (0–1 scale).
-	•	Average True Coverage: The average percentage of True NLI evidence across records.
-	•	Average False Coverage: The average percentage of False NLI evidence across records.
-	•	Baseline Lift: Difference in average True coverage between normal NLI and random NLI.
+3.1. Cosine Similarity Scores Across Chunk Sizes
 
-3.2. Calculation Examples
-	•	True Coverage per Record:
-￼
-	•	Average of Averages (True and False):
-￼
-	•	Baseline Lift:
-￼
+Regular Summary Similarity Scores (cs_mean)
+	•	Highest cosine similarity observed for small chunk sizes (25–70 tokens), gradually declining with increasing chunk size.
+	•	Scores stabilize from 100 tokens onward, with minor fluctuations.
 
-4. Results
+Chunk Size	Mean Cosine Similarity (cs_mean)
+25	0.567007
+50	0.565699
+60	0.563123
+70	0.561658
+100	0.555293
+200	0.546926
+280	0.542680
+300	0.541662
+330	0.540351
+360	0.538696
+380	0.537719
+400	0.536660
+500	0.531839
 
-4.1. Normal NLI Analysis
-	•	The average of average True evidence increases with larger chunk sizes, indicating that larger chunks capture more contextual information and lead to higher entailment accuracy.
-	•	False evidence coverage decreases slightly, indicating fewer mismatches as chunk size increases.
+Random Baseline Similarity Scores (cs_Random_mean)
+	•	Lower cosine similarity across all chunk sizes, confirming that the model-generated summaries contain meaningful information from the transcripts.
+	•	Random baseline scores decrease slightly as chunk size increases, similar to the regular summary trend.
 
-Chunk Size	Avg. True Coverage	Avg. False Coverage
-100	X%	Y%
-200	X%	Y%
-300	X%	Y%
-400	X%	Y%
-500	X%	Y%
+Chunk Size	Mean Random Cosine Similarity (cs_Random_mean)
+25	0.427952
+50	0.421624
+60	0.418562
+70	0.415739
+100	0.410040
+200	0.409189
+280	0.407064
+300	0.407757
+330	0.408403
+360	0.407641
+380	0.407056
+400	0.406399
+500	0.405288
 
-4.2. Baseline (Random NLI) Analysis
-	•	In the random baseline, False evidence coverage increases with chunk size, while True evidence remains minimal.
+4. Analysis and Findings
 
-Chunk Size	Avg. Random True Coverage	Avg. Random False Coverage
-100	X%	Y%
-200	X%	Y%
-300	X%	Y%
-400	X%	Y%
-500	X%	Y%
+4.1. Model Performance vs. Random Baseline
+	•	Regular cosine similarity scores are consistently higher than random baseline scores, validating the effectiveness of the model-generated summaries.
+	•	Gap between regular and random similarity indicates a meaningful alignment between summaries and transcripts.
 
-5. Observations
-	1.	Chunk Size Sensitivity:
-	•	Larger chunk sizes lead to better entailment scores, likely due to improved contextual overlap between transcripts and summaries.
-	•	Small chunk sizes may miss critical context, reducing True evidence coverage.
-	2.	Baseline Comparison:
-	•	Random NLI scores are significantly lower than normal scores, indicating that the model is effectively identifying entailment relationships.
-	3.	Coverage Patterns:
-	•	True evidence coverage dominates across all chunk sizes, validating model accuracy.
-	•	False evidence coverage trends downward with larger chunks.
+4.2. Impact of Chunk Size
+	•	Smaller chunk sizes (25–70 tokens) yield the highest similarity scores, indicating better alignment of summaries with smaller transcript sections.
+	•	Larger chunk sizes (100+ tokens) show a decline in similarity scores, likely due to increased noise and dilution of relevant content.
+	•	Stability is observed from chunk size 300 onwards, suggesting a balance between contextual coverage and information dilution.
 
-6. Recommendations
-	1.	Optimal Chunk Size: Chunk sizes of 400–500 tokens are recommended for optimal performance.
-	2.	Model Performance Monitoring: Regularly assess baseline lift to ensure the model remains effective.
-	3.	Documentation Updates: Maintain detailed logs of changes to model parameters or chunking strategies.
+4.3. Key Observations
+	1.	Regular similarity consistently outperforms random baseline, proving that model-generated summaries capture meaningful transcript content.
+	2.	Cosine similarity scores gradually decline with larger chunk sizes, suggesting that summarization accuracy decreases as chunk size increases.
+	3.	Gap between regular and random similarity remains stable across all chunk sizes, demonstrating robustness in summary quality.
 
-7. Conclusion
+5. Recommendations
 
-This documentation outlines the process, metrics, and findings of the NLI analysis, supporting the validation and assessment needs of the MRM team. The results demonstrate the model’s sensitivity to chunk size and its ability to outperform the baseline random NLI scores, ensuring reliable performance in summarization tasks.
+5.1. Optimal Chunk Size for Evaluation
+	•	For maximum similarity, chunk sizes between 25 and 100 tokens are recommended as they yield the highest cosine similarity scores.
+	•	Chunk sizes above 300 tokens are less sensitive to further increases, making them viable for efficient processing without major loss in similarity.
 
-Would you like me to refine this further or add visualizations like graphs and tables for better clarity?
+5.2. Model Performance Monitoring
+	•	Regularly monitor cosine similarity trends to ensure model-generated summaries remain informative.
+	•	Compare against updated random baselines periodically to validate ongoing model effectiveness.
+
+5.3. Suggested Enhancements
+	•	Incorporate additional similarity metrics (e.g., Jaccard Similarity, BLEU scores) to cross-validate findings.
+	•	Experiment with dynamic chunking (adaptive chunk sizes based on summary length) to optimize summary alignment.
+
+6. Conclusion
+
+This documentation presents a comprehensive analysis of cosine similarity scores between bank call transcripts and model-generated summaries, evaluated across 6707 records with varying chunk sizes.
+	•	Smaller chunk sizes yield higher similarity, confirming better summary alignment.
+	•	Model-generated summaries outperform the random baseline, validating their semantic accuracy.
+	•	Stability in scores beyond chunk size 300 suggests a balance between context coverage and dilution.
+
+This evaluation ensures a transparent and structured approach for model risk assessment, demonstrating reliable summary performance while highlighting areas for improvement.
